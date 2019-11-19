@@ -54,6 +54,17 @@ if (!empty($code)) {
 		//$key_data = $key_content;
 		$jwt = \Firebase\JWT\JWT::encode($jwt_payload, $key_data, 'ES256', null, $jwt_header);
 		$jwt_list['Firebase\JWT'] = $jwt;
+
+		$jwt_handle = explode('.', $jwt);
+
+		$MultibyteStringConverter = new \Lcobucci\JWT\Signer\Ecdsa\MultibyteStringConverter();
+		$jwt_handle[2] = \Firebase\JWT\JWT::urlsafeB64Encode(
+				$MultibyteStringConverter->fromAsn1(
+					\Firebase\JWT\JWT::urlsafeB64Decode($jwt_handle[2]), 
+					64
+				)
+		);
+		$jwt_list['Firebase\JWT and \Lcobucci\JWT\Signer\Ecdsa\MultibyteStringConverter'] = implode('.', $jwt_handle);
 	}
 	
 	foreach($jwt_list as $from => $jwt ) {

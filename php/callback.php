@@ -65,6 +65,21 @@ if (!empty($code)) {
 				)
 		);
 		$jwt_list['Firebase\JWT and \Lcobucci\JWT\Signer\Ecdsa\MultibyteStringConverter'] = implode('.', $jwt_handle);
+
+		//
+		// using PEM content
+		//
+		$jwt = \Firebase\JWT\JWT::encode($jwt_payload, $key_content, 'ES256', null, $jwt_header);
+		$jwt_handle = explode('.', $jwt);
+
+		$MultibyteStringConverter = new \Lcobucci\JWT\Signer\Ecdsa\MultibyteStringConverter();
+		$jwt_handle[2] = \Firebase\JWT\JWT::urlsafeB64Encode(
+				$MultibyteStringConverter->fromAsn1(
+					\Firebase\JWT\JWT::urlsafeB64Decode($jwt_handle[2]), 
+					64
+				)
+		);
+		$jwt_list['Firebase\JWT without openssl_pkey_get_private and \Lcobucci\JWT\Signer\Ecdsa\MultibyteStringConverter'] = implode('.', $jwt_handle);
 	}
 	
 	foreach($jwt_list as $from => $jwt ) {

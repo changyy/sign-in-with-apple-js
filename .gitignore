@@ -1,0 +1,5 @@
+vendor
+keystore
+php/settings.json
+composer.phar
+*.swp

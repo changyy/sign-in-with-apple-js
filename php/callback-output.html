@@ -1,0 +1,138 @@
+
+<pre>
+oepnssl = OpenSSL 1.1.1  11 Sep 2018
+jwt_header = Array
+(
+    [typ] => JWT
+    [alg] => ES256
+    [kid] => YourKeyID
+)
+
+jwt_payload = Array
+(
+    [iss] => YourTeamID
+    [iat] => 1574184061
+    [exp] => 1574187661
+    [aud] => https://appleid.apple.com
+    [sub] => YourServiceID
+)
+
+apple_public_keys = Array
+(
+    [keys] => Array
+        (
+            [0] => Array
+                (
+                    [kty] => RSA
+                    [kid] => AIDOPK1
+                    [use] => sig
+                    [alg] => RS256
+                    [n] => lxrwmuYSAsTfn-lUu4goZSXBD9ackM9OJuwUVQHmbZo6GW4Fu_auUdN5zI7Y1dEDfgt7m7QXWbHuMD01HLnD4eRtY-RNwCWdjNfEaY_esUPY3OVMrNDI15Ns13xspWS3q-13kdGv9jHI28P87RvMpjz_JCpQ5IM44oSyRnYtVJO-320SB8E2Bw92pmrenbp67KRUzTEVfGU4-obP5RZ09OxvCr1io4KJvEOjDJuuoClF66AT72WymtoMdwzUmhINjR0XSqK6H0MdWsjw7ysyd_JhmqX5CAaT9Pgi0J8lU_pcl215oANqjy7Ob-VMhug9eGyxAWVfu_1u6QJKePlE-w
+                    [e] => AQAB
+                )
+
+        )
+
+)
+
+apple_public_key_pem = 
+
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlxrwmuYSAsTfn+lUu4go
+ZSXBD9ackM9OJuwUVQHmbZo6GW4Fu/auUdN5zI7Y1dEDfgt7m7QXWbHuMD01HLnD
+4eRtY+RNwCWdjNfEaY/esUPY3OVMrNDI15Ns13xspWS3q+13kdGv9jHI28P87RvM
+pjz/JCpQ5IM44oSyRnYtVJO+320SB8E2Bw92pmrenbp67KRUzTEVfGU4+obP5RZ0
+9OxvCr1io4KJvEOjDJuuoClF66AT72WymtoMdwzUmhINjR0XSqK6H0MdWsjw7ysy
+d/JhmqX5CAaT9Pgi0J8lU/pcl215oANqjy7Ob+VMhug9eGyxAWVfu/1u6QJKePlE
++wIDAQAB
+-----END PUBLIC KEY-----
+
+
+apple_public_key_alg = RS256
+
+</pre>
+<hr>
+<strong>[Lcobucci\JWT]</strong>
+<pre>
+request data = Array
+(
+    [client_id] => YourServiceID
+    [client_secret] => A.B.C1
+    [code] => c
+    [grant_type] => authorization_code
+    [redirect_uri] => https://YourServiceIDReturnURL
+)
+
+
+response = Array
+(
+    [access_token] => a
+    [token_type] => Bearer
+    [expires_in] => 3600
+    [refresh_token] => r
+    [id_token] => id_token
+)
+
+
+</pre>
+<hr>
+<strong>[Firebase\JWT]</strong>
+<pre>
+request data = Array
+(
+    [client_id] => YourServiceID
+    [client_secret] => A.B.C2
+    [code] => c
+    [grant_type] => authorization_code
+    [redirect_uri] => https://YourServiceIDReturnURL
+)
+
+
+response = Array
+(
+    [error] => invalid_client
+)
+
+
+</pre>
+<hr>
+<strong>[Firebase\JWT and \Lcobucci\JWT\Signer\Ecdsa\MultibyteStringConverter]</strong>
+<pre>
+request data = Array
+(
+    [client_id] => YourServiceID
+    [client_secret] => A.B.C3
+    [code] => c
+    [grant_type] => authorization_code
+    [redirect_uri] => https://YourServiceIDReturnURL
+)
+
+
+response = Array
+(
+    [error] => invalid_grant
+)
+
+
+</pre>
+<hr>
+<strong>[Firebase\JWT without openssl_pkey_get_private and \Lcobucci\JWT\Signer\Ecdsa\MultibyteStringConverter]</strong>
+<pre>
+request data = Array
+(
+    [client_id] => YourServiceID
+    [client_secret] => A.B.C4
+    [code] => c
+    [grant_type] => authorization_code
+    [redirect_uri] => https://YourServiceIDReturnURL
+)
+
+
+response = Array
+(
+    [error] => invalid_grant
+)
+
+
+</pre>
+
